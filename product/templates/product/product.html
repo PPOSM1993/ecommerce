@@ -1,10 +1,14 @@
 {% extends 'core/base.html' %}
-
+{% block title %}
+Products
+{% endblock %}
 {% block content %}
   <div class="max-w-6xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
     <div class="images w-full mb-6 lg:mb-0 lg:w-3/5">
-      <img src="https://falabella.scene7.com/is/image/Falabella/881740572_1?wid=800&hei=800&qlt=70" style="width: 400px;" alt="" class="rounded-xl" />
+      <img src="{% if product.image%} {{ product.image.url }} {% else %} https://via.placeholder.com/240x240.jpg {% endif %}" class="rounded-xl">
     </div>
+
+    
 
     <div class="information w-full lg:w-2/5 lg:p-6">
       <h1 class="text-2xl uppercase">{{ product.name }}</h1>
@@ -12,8 +16,13 @@
       {% if product.description %}
         <p class="mt-6 text-gray-700 text-justify">{{ product.description }}</p>
       {% endif %}
-      <a href="" class="mt-6 inline-block px-8 py-4 rounded-xl bg-blue-500 text-white hover:bg-blue-700" 
-      hx-get="{% url 'menu_cart' product.id %}" hx-target="#menu-cart-button" hx-swap="outerHTML">
+
+      <a href="#" 
+        class="mt-6 inline-block px-8 py-4 rounded-xl bg-blue-500 text-white hover:bg-blue-700" 
+            hx-get="{% url 'add_to_cart' product.id %}"
+            hx-target="#menu-cart-button"
+            hx-swap="outerHTML"
+      >
         Add to Cart
       </a>
     </div>
